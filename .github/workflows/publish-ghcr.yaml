@@ -1,0 +1,15 @@
+name: Docker Image CI for GHCR
+
+on:
+  push
+
+jobs:
+  build_and-publish:
+    run-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push the image
+        run: |
+          docker login --username m0onc4k3 --password ${{ secrets.GHCR_TOKEN}} ghcr.io
+          docker build . --tag ghcr.io/m0onc4k3/hello-joker-ghcr:latest
+          docker push ghcr.io/m0onc4k3/hello-joker-ghcr:latest
